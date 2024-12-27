@@ -57,6 +57,11 @@ export const HomeCreateText = styled.Text`
     color: ${colors.whtMain};
 `;
 
+export const HomePlayers = styled.FlatList`
+    margin-top: 26;
+    max-height: 400;
+`;
+
 export const HomeFooterText = styled.Text`
     font-size: ${fonts.font11};
     margin-top: 120;
