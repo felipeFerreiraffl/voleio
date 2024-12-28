@@ -81,7 +81,7 @@ export default function App() {
             );
 
             return (
-              <Link href={"infos"}>
+              <Link href={`/infos/${item.id}`}>
                 <PlayerCard
                   name={item.nome}
                   classroom={item.turma}
