@@ -1,10 +1,12 @@
-import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
+import { useEffect, useState } from "react";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
+import PlayerCard from "../components/PlayerCard";
+import { findAll } from "../services/api/methods";
+import { calculateOverall } from "../services/scripts/scripts";
 import { colors } from "../styles/styles";
 import * as S from "./styles";
-import { MaterialIcons } from "@expo/vector-icons";
-import PlayerCard from "../components/PlayerCard";
-import { useEffect, useState } from "react";
-import { findAll } from "../services/api/methods";
+import { Link } from "expo-router";
 
 export default function App() {
   const [jogadores, setJogadores] = useState([]);
@@ -25,6 +27,20 @@ export default function App() {
 
     fetchJogadores();
   }, []);
+
+  const handleOverallColor = (overall) => {
+    if (overall >= 90) {
+      return colors.grnExc;
+    } else if (overall < 90 && overall >= 80) {
+      return colors.grnGood;
+    } else if (overall < 80 && overall >= 65) {
+      return colors.ylwAvg;
+    } else if (overall < 65 && overall >= 50) {
+      return colors.orgLow;
+    } else {
+      return colors.redVlow;
+    }
+  };
 
   return (
     <S.HomeContainer>
@@ -48,22 +64,34 @@ export default function App() {
       </S.HomeCreateButton>
 
       {loading ? (
-        <View style={styles.loading}>
+        <S.HomeContainer>
           <ActivityIndicator size={"small"} color={colors.blueMain} />
-        </View>
+        </S.HomeContainer>
       ) : (
         <S.HomePlayers
           data={jogadores}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <PlayerCard
-              name={item.nome}
-              classroom={item.turma}
-              image={"default"}
-              overall={90}
-              backgroundColor={colors.grnExc}
-            />
-          )}
+          renderItem={({ item }) => {
+            const overall = calculateOverall(
+              item.velocidade,
+              item.ataque,
+              item.defesa,
+              item.saque,
+              item.mentalidade
+            );
+
+            return (
+              <Link href={"infos"}>
+                <PlayerCard
+                  name={item.nome}
+                  classroom={item.turma}
+                  image={item.imagem !== null ? item.imagem : "default"}
+                  overall={overall}
+                  backgroundColor={handleOverallColor(overall)}
+                />
+              </Link>
+            );
+          }}
           ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
         />
       )}

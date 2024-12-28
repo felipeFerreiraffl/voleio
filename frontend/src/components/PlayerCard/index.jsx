@@ -1,7 +1,5 @@
-import { StyleSheet, View } from "react-native";
-import * as S from "./styles";
-import { colors } from "../../styles/styles";
 import images from "../../assets/images";
+import * as S from "./styles";
 
 export default function PlayerCard({
   image,
@@ -12,12 +10,15 @@ export default function PlayerCard({
 }) {
   return (
     <S.PlayerCardContainer>
-      <S.PlayerCardImage source={images[image]} />
 
-      <S.PlayerCardTitleContainer>
-        <S.PlayerCardName>{name}</S.PlayerCardName>
-        <S.PlayerCardClass>{classroom}</S.PlayerCardClass>
-      </S.PlayerCardTitleContainer>
+      <S.PlayerCardMainContainer>
+        <S.PlayerCardImage source={images[image]} />
+
+        <S.PlayerCardTitleContainer>
+          <S.PlayerCardName>{name}</S.PlayerCardName>
+          <S.PlayerCardClass>{classroom}</S.PlayerCardClass>
+        </S.PlayerCardTitleContainer>
+      </S.PlayerCardMainContainer>
 
       <S.PlayerCardOverall style={{ backgroundColor: backgroundColor }}>
         <S.PlayerCardOverallValue>{overall}</S.PlayerCardOverallValue>
