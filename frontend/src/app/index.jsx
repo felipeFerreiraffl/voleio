@@ -28,6 +28,7 @@ export default function App() {
     fetchJogadores();
   }, []);
 
+  // Muda a cor do card do overall
   const handleOverallColor = (overall) => {
     if (overall >= 90) {
       return colors.grnExc;
@@ -109,17 +110,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   upperView: {
-    // flex: 1,
+    flex: 1,
     top: 0,
     backgroundColor: colors.ylwMain,
     width: "100%",
-    height: 35,
+    maxHeight: 35,
   },
   downView: {
-    // flex: 1,
+    flex: 1,
     bottom: 0,
     backgroundColor: colors.blueMain,
     width: "100%",
-    height: 35,
+    maxHeight: 35,
   },
 });
