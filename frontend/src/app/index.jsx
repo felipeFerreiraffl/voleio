@@ -8,7 +8,7 @@ import { colors } from "../styles/styles";
 import * as S from "./styles";
 import { Link, useRouter } from "expo-router";
 
-export default function App() {
+export default function Home() {
   const [jogadores, setJogadores] = useState([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();

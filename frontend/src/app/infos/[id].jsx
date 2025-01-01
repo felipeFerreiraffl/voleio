@@ -99,7 +99,7 @@ export default function Infos() {
               </S.InfoCardInfosContainer>
 
               <S.InfoCardButtonContainer>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => router.push(`/player/${id}`)}>
                   <MaterialIcons
                     name="edit"
                     size={21}

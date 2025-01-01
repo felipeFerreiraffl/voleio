@@ -13,14 +13,14 @@ export const findOneById = async (id) => {
 }
 
 // POST
-export const createOne = async () => {
-    const response = await api.post("/voleio");
+export const createOne = async (jogador) => {
+    const response = await api.post("/voleio", jogador);
     return response.data;
 }
 
 // PUT
-export const updateOne = async (id) => {
-    const response = await api.put(`/voleio/${id}`);
+export const updateOne = async (id, jogador) => {
+    const response = await api.put(`/voleio/${id}`, jogador);
     return response.data;
 }
 

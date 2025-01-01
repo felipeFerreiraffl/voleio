@@ -98,7 +98,6 @@ export const PlayerStatsOverallTitle = styled.Text`
 `;
 
 export const PlayerStatsOverallBox = styled.View`
-  background-color: ${colors.whtMain};
   padding: 10px 13px;
   border-radius: 5px;
 `;
