@@ -153,7 +153,7 @@ export default function Player() {
               <S.PlayerStatsOverallBox
                 style={{ backgroundColor: handleOverallColor(overall) }}
               >
-                <S.PlayerStatsOverallTitle>{overall}</S.PlayerStatsOverallTitle>
+                <S.PlayerStatsOverallValue>{overall}</S.PlayerStatsOverallValue>
               </S.PlayerStatsOverallBox>
             </S.PlayerStatsOverallView>
           </S.PlayerStatsOverallContainer>

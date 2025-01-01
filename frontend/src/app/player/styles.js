@@ -96,6 +96,14 @@ export const PlayerStatsOverallTitle = styled.Text`
   font-family: "Gill Sans";
   font-size: ${fonts.font14};
   font-weight: bold;
+  color: ${colors.whtMain};
+`;
+
+export const PlayerStatsOverallValue = styled.Text`
+  font-family: "Gill Sans";
+  font-size: ${fonts.font14};
+  font-weight: bold;
+  color: ${colors.black};
 `;
 
 export const PlayerStatsOverallBox = styled.View`

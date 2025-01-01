@@ -137,9 +137,9 @@ export default function Player() {
               <S.PlayerStatsOverallBox
                 style={{ backgroundColor: handleOverallColor(overall) }}
               >
-                <S.PlayerStatsOverallTitle>
+                <S.PlayerStatsOverallValue>
                   {isNaN(overall) ? 0 : overall}
-                </S.PlayerStatsOverallTitle>
+                </S.PlayerStatsOverallValue>
               </S.PlayerStatsOverallBox>
             </S.PlayerStatsOverallView>
           </S.PlayerStatsOverallContainer>

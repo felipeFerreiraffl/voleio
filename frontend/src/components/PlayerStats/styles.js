@@ -11,6 +11,7 @@ export const PlayStatsTitle = styled.Text`
   font-family: "Gill Sans";
   font-size: ${fonts.font12};
   font-weight: bold;
+  color: ${colors.whtMain};
 `;
 
 export const PlayStatsOverall = styled.TextInput`
