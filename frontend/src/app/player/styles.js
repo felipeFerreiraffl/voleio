@@ -43,6 +43,7 @@ export const PlayerInfosImageInput = styled.TextInput`
   font-family: "Gill Sans";
   font-size: ${fonts.font12};
   padding-left: 15;
+  height: 40;
 `;
 
 export const PlayerInfosMainContainer = styled.View`

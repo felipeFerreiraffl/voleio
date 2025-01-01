@@ -7,6 +7,7 @@ import { calculateOverall } from "../services/scripts/scripts";
 import { colors } from "../styles/styles";
 import * as S from "./styles";
 import { Link, useRouter } from "expo-router";
+import images from "../assets/images";
 
 export default function Home() {
   const [jogadores, setJogadores] = useState([]);
@@ -87,7 +88,7 @@ export default function Home() {
                 <PlayerCard
                   name={item.nome}
                   classroom={item.turma}
-                  image={item.imagem !== null ? item.imagem : "default"}
+                  image={item.imagem}
                   overall={overall}
                   backgroundColor={handleOverallColor(overall)}
                 />

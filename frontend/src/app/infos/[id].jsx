@@ -13,6 +13,7 @@ import { findOneById } from "../../services/api/methods";
 import { calculateOverall } from "../../services/scripts/scripts";
 import { colors } from "../../styles/styles";
 import * as S from "./styles";
+import images from "../../assets/images";
 
 export default function Infos() {
   const [jogador, setJogador] = useState([]);
@@ -77,7 +78,7 @@ export default function Infos() {
           <>
             <S.InfoCardContainer>
               <S.InfoCardImage
-                source={require("../../assets/images/default-pic.png")}
+                source={jogador.imagem ? { uri: jogador.imagem } : images.default}
               />
 
               <S.InfoCardInfosContainer>

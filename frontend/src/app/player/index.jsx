@@ -6,35 +6,47 @@ import { calculateOverall } from "../../services/scripts/scripts";
 import { useEffect, useState } from "react";
 import { createOne, findOneById, updateOne } from "../../services/api/methods";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import images from "../../assets/images";
 
 export default function Player() {
   const [jogador, setJogador] = useState([]);
   const { id } = useLocalSearchParams();
+  const [editMode, setEditMode] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    const fetchPlayer = async () => {
-      try {
-        const response = await findOneById(id);
+    if (id) {
+      setEditMode(true);
 
-        setJogador(response);
-      } catch (error) {
-        console.error("Erro ao buscar jogador", error.message);
-      }
-    };
+      const fetchPlayer = async () => {
+        try {
+          const response = await findOneById(id);
 
-    fetchPlayer();
-  }, []);
+          setJogador(response);
+        } catch (error) {
+          console.error("Não conseguimos buscar o jogador", error.message);
+        }
 
-  const handleEditPlayer = async () => {
+        fetchPlayer();
+      };
+    }
+  }, [id]);
+
+  const handleSavePlayer = async () => {
     try {
-      await updateOne(id, jogador);
-      Alert.alert("Atualizado", "Jogador atualizado!");
+      if (editMode) {
+        await updateOne(id, jogador);
+        Alert.alert("Sucesso", "Jogador atualizado!");
 
-      router.back();
+        router.push(`/infos/${id}`);
+      } else {
+        await createOne(jogador);
+        Alert.alert("Sucesso", "Jogador criado!");
+
+        router.push("/");
+      }
     } catch (error) {
-      console.error("Erro ao atualizar jogador", error.message);
+      Alert.alert("Erro", "Erro ao salvar jogador");
+      console.error("Deu tudo errado", error.message);
     }
   };
 
@@ -68,7 +80,7 @@ export default function Player() {
       <S.PlayerInfosContainer>
         <S.PlayerInfosImageContainer>
           <S.PlayerInfosImage
-            source={jogador.imagem ? { uri: jogador.imagem } : images.default}
+            source={require("../../assets/images/default-pic.png")}
           />
 
           <S.PlayerInfosInputContainer>
@@ -113,50 +125,43 @@ export default function Player() {
           <S.PlayerStatsContainer>
             <PlayerStats
               label={"Velocidade"}
-              value={String(jogador.velocidade)} // Transforma o número em String para o Input
-              onChangeText={
-                (text) =>
-                  setJogador({ ...jogador, velocidade: Number(text) || 0 }) // Transforma em Number
+              value={jogador.velocidade || "0"}
+              onChangeText={(text) =>
+                setJogador({ ...jogador, velocidade: text })
               }
-              bgColor={handleOverallColor(jogador.velocidade)}
+              bgColor={handleOverallColor(overall)}
             />
             <PlayerStats
               label={"Defesa"}
-              value={String(jogador.defesa)}
-              onChangeText={(text) =>
-                setJogador({ ...jogador, defesa: Number(text) || 0 })
-              }
-              bgColor={handleOverallColor(jogador.defesa)}
+              value={jogador.defesa || "0"}
+              onChangeText={(text) => setJogador({ ...jogador, defesa: text })}
+              bgColor={handleOverallColor(overall)}
             />
           </S.PlayerStatsContainer>
 
           <S.PlayerStatsContainer>
             <PlayerStats
               label={"Ataque"}
-              value={String(jogador.ataque)}
-              onChangeText={(text) =>
-                setJogador({ ...jogador, ataque: Number(text) || 0 })
-              }
-              bgColor={handleOverallColor(jogador.ataque)}
+              value={jogador.ataque || "0"}
+              onChangeText={(text) => setJogador({ ...jogador, ataque: text })}
+              bgColor={handleOverallColor(overall)}
             />
             <PlayerStats
               label={"Saque"}
-              value={String(jogador.saque)}
-              onChangeText={(text) =>
-                setJogador({ ...jogador, saque: Number(text) || 0 })
-              }
-              bgColor={handleOverallColor(jogador.saque)}
+              value={jogador.saque || "0"}
+              onChangeText={(text) => setJogador({ ...jogador, saque: text })}
+              bgColor={handleOverallColor(overall)}
             />
           </S.PlayerStatsContainer>
 
           <S.PlayerStatsOverallContainer>
             <PlayerStats
               label={"Mentalidade"}
-              value={String(jogador.mentalidade)}
+              value={jogador.mentalidade || "0"}
               onChangeText={(text) =>
-                setJogador({ ...jogador, mentalidade: Number(text) || 0 })
+                setJogador({ ...jogador, mentalidade: text })
               }
-              bgColor={handleOverallColor(jogador.mentalidade)}
+              bgColor={handleOverallColor(overall)}
             />
 
             <S.PlayerStatsOverallView>
@@ -166,7 +171,7 @@ export default function Player() {
                 style={{ backgroundColor: handleOverallColor(overall) }}
               >
                 <S.PlayerStatsOverallTitle>
-                  {overall}
+                  {calculateOverall(overall)}
                 </S.PlayerStatsOverallTitle>
               </S.PlayerStatsOverallBox>
             </S.PlayerStatsOverallView>
@@ -175,8 +180,10 @@ export default function Player() {
       </S.PlayerInfosContainer>
 
       <S.PlayerButtonContainer>
-        <S.PlayerButtonSave onPress={handleEditPlayer}>
-          <S.PlayerButtonText>Editar</S.PlayerButtonText>
+        <S.PlayerButtonSave onPress={handleSavePlayer}>
+          <S.PlayerButtonText>
+            {editMode ? "Editar" : "Criar"}
+          </S.PlayerButtonText>
         </S.PlayerButtonSave>
 
         <S.PlayerButtonCancel onPress={() => router.back()}>

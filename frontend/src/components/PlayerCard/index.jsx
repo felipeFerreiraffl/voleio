@@ -8,11 +8,13 @@ export default function PlayerCard({
   overall,
   backgroundColor,
 }) {
+  const imageSource = image ? { uri: image } : images.default;
+
   return (
     <S.PlayerCardContainer>
 
       <S.PlayerCardMainContainer>
-        <S.PlayerCardImage source={images[image]} />
+        <S.PlayerCardImage source={imageSource} />
 
         <S.PlayerCardTitleContainer>
           <S.PlayerCardName>{name}</S.PlayerCardName>

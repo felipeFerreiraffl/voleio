@@ -9,6 +9,7 @@ export default function PlayerStats({ label, value, onChangeText, bgColor }) {
     <S.PlayStatsOverall 
         value={value}
         onChangeText={onChangeText}
+        keyboardType='numeric'
         style={{ backgroundColor: bgColor }}
     />
    </S.PlayStatsContainer>

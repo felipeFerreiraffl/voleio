@@ -108,6 +108,7 @@ export const InfoUrlInput = styled.TextInput`
   background-color: ${colors.whtMain};
   padding-left: 20;
   width: 330;
+  height: 46;
   border-radius: 5px;
   font-size: ${fonts.font11};
 `;
