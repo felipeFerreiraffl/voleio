@@ -1,12 +1,15 @@
-import { Alert, StyleSheet, View } from "react-native";
-import * as S from "./styles";
-import { colors } from "../../styles/styles";
-import PlayerStats from "../../components/PlayerStats";
-import { calculateOverall } from "../../services/scripts/scripts";
-import { useEffect, useState } from "react";
-import { createOne, findOneById, updateOne } from "../../services/api/methods";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import { Alert, StyleSheet, View } from "react-native";
 import images from "../../assets/images";
+import PlayerStats from "../../components/PlayerStats";
+import { findOneById, updateOne } from "../../services/api/methods";
+import {
+  calculateOverall,
+  handleOverallColor,
+} from "../../services/scripts/scripts";
+import { colors } from "../../styles/styles";
+import * as S from "./styles";
 
 export default function Player() {
   const [jogador, setJogador] = useState([]);
@@ -35,21 +38,6 @@ export default function Player() {
       router.back();
     } catch (error) {
       console.error("Erro ao atualizar jogador", error.message);
-    }
-  };
-
-  // Muda a cor do card do overall
-  const handleOverallColor = (overall) => {
-    if (overall >= 90) {
-      return colors.grnExc;
-    } else if (overall < 90 && overall >= 80) {
-      return colors.grnGood;
-    } else if (overall < 80 && overall >= 65) {
-      return colors.ylwAvg;
-    } else if (overall < 65 && overall >= 50) {
-      return colors.orgLow;
-    } else {
-      return colors.redVlow;
     }
   };
 
@@ -165,9 +153,7 @@ export default function Player() {
               <S.PlayerStatsOverallBox
                 style={{ backgroundColor: handleOverallColor(overall) }}
               >
-                <S.PlayerStatsOverallTitle>
-                  {overall}
-                </S.PlayerStatsOverallTitle>
+                <S.PlayerStatsOverallTitle>{overall}</S.PlayerStatsOverallTitle>
               </S.PlayerStatsOverallBox>
             </S.PlayerStatsOverallView>
           </S.PlayerStatsOverallContainer>
@@ -191,7 +177,7 @@ export default function Player() {
 
 const styles = StyleSheet.create({
   upperView: {
-    flex: 1,
+    flex: 2,
     maxHeight: 35,
     minHeight: 35,
     top: 0,
@@ -199,7 +185,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   downView: {
-    flex: 1,
+    flex: 2,
     maxHeight: 35,
     minHeight: 35,
     bottom: 0,

@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import StatLevel from "../../components/StatLevel";
 import { deleteOne, findOneById } from "../../services/api/methods";
-import { calculateOverall } from "../../services/scripts/scripts";
+import { calculateOverall, handleOverallColor } from "../../services/scripts/scripts";
 import { colors } from "../../styles/styles";
 import * as S from "./styles";
 import images from "../../assets/images";
@@ -49,21 +49,6 @@ export default function Infos() {
       
     }
   }
-
-  // Muda a cor do card do overall
-  const handleOverallColor = (overall) => {
-    if (overall >= 90) {
-      return colors.grnExc;
-    } else if (overall < 90 && overall >= 80) {
-      return colors.grnGood;
-    } else if (overall < 80 && overall >= 65) {
-      return colors.ylwAvg;
-    } else if (overall < 65 && overall >= 50) {
-      return colors.orgLow;
-    } else {
-      return colors.redVlow;
-    }
-  };
 
   const overall = calculateOverall(
     jogador.velocidade,
