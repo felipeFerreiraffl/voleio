@@ -3,13 +3,14 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
+  Alert,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
   View,
 } from "react-native";
 import StatLevel from "../../components/StatLevel";
-import { findOneById } from "../../services/api/methods";
+import { deleteOne, findOneById } from "../../services/api/methods";
 import { calculateOverall } from "../../services/scripts/scripts";
 import { colors } from "../../styles/styles";
 import * as S from "./styles";
@@ -36,6 +37,18 @@ export default function Infos() {
 
     fetchPlayer();
   }, [id]);
+
+  const handleDeletePlayer = async () => {
+    try {
+      await deleteOne(id);
+      Alert.alert("Excluído", "Jogador excluído!");
+
+      router.back();
+    } catch (error) {
+      console.error("Erro ao excluir jogador", error.message);
+      
+    }
+  }
 
   // Muda a cor do card do overall
   const handleOverallColor = (overall) => {
@@ -107,7 +120,7 @@ export default function Infos() {
                     color={colors.blueMain}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={handleDeletePlayer}>
                   <MaterialIcons
                     name="delete"
                     size={21}

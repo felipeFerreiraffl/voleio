@@ -117,6 +117,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.ylwMain,
     width: "100%",
     maxHeight: 35,
+    minHeight: 35,
   },
   downView: {
     flex: 1,
@@ -124,5 +125,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.blueMain,
     width: "100%",
     maxHeight: 35,
+    minHeight: 35,
   },
 });
