@@ -6,11 +6,12 @@ import { findAll } from "../services/api/methods";
 import { calculateOverall } from "../services/scripts/scripts";
 import { colors } from "../styles/styles";
 import * as S from "./styles";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 
 export default function App() {
   const [jogadores, setJogadores] = useState([]);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchJogadores = async () => {
@@ -59,7 +60,7 @@ export default function App() {
         <MaterialIcons name="person" size={24} color={colors.black} />
       </S.HomePlayerContainer>
 
-      <S.HomeCreateButton>
+      <S.HomeCreateButton onPress={() => router.push("/player")}>
         <S.HomeCreateText>Criar</S.HomeCreateText>
         <MaterialIcons name="add-circle" size={17} color={colors.whtMain} />
       </S.HomeCreateButton>
