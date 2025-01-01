@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Alert, StyleSheet, View } from "react-native";
+import { Alert, ScrollView, StyleSheet, View } from "react-native";
 import images from "../../assets/images";
 import PlayerStats from "../../components/PlayerStats";
 import { createOne } from "../../services/api/methods";
@@ -35,129 +35,133 @@ export default function Player() {
   );
 
   return (
-    <S.PlayerContainer>
-      <View style={styles.upperView} />
+    <ScrollView scrollEnabled={false} keyboardShouldPersistTaps="never">
+      <S.PlayerContainer>
+        <View style={styles.upperView} />
 
-      <S.PlayerInfosContainer>
-        <S.PlayerInfosImageContainer>
-          <S.PlayerInfosImage
-            source={jogador.imagem ? { uri: jogador.imagem } : images.default}
-          />
-
-          <S.PlayerInfosInputContainer>
-            <S.PlayerInfosLabel>Imagem</S.PlayerInfosLabel>
-
-            <S.PlayerInfosImageInput
-              value={jogador.imagem}
-              onChangeText={(text) => setJogador({ ...jogador, imagem: text })}
-            />
-          </S.PlayerInfosInputContainer>
-        </S.PlayerInfosImageContainer>
-
-        <S.PlayerInfosMainContainer>
-          <S.PlayerInfosInputContainer>
-            <S.PlayerInfosLabel>Nome (comumente chamado)</S.PlayerInfosLabel>
-            <S.PlayerInfosInput
-              value={jogador.nome}
-              onChangeText={(text) => setJogador({ ...jogador, nome: text })}
-            />
-          </S.PlayerInfosInputContainer>
-
-          <S.PlayerInfosInputContainer>
-            <S.PlayerInfosLabel>Nome completo</S.PlayerInfosLabel>
-            <S.PlayerInfosInput
-              value={jogador.nomeCompleto}
-              onChangeText={(text) =>
-                setJogador({ ...jogador, nomeCompleto: text })
-              }
-            />
-          </S.PlayerInfosInputContainer>
-
-          <S.PlayerInfosInputContainer>
-            <S.PlayerInfosLabel>Turma</S.PlayerInfosLabel>
-            <S.PlayerInfosInput
-              value={jogador.turma}
-              onChangeText={(text) => setJogador({ ...jogador, turma: text })}
-            />
-          </S.PlayerInfosInputContainer>
-        </S.PlayerInfosMainContainer>
-
-        <S.PlayerStatsMainContainer>
-          <S.PlayerStatsContainer>
-            <PlayerStats
-              label={"Velocidade"}
-              value={jogador.velocidade}
-              onChangeText={(text) =>
-                setJogador({ ...jogador, velocidade: Number(text) || 0 })
-              }
-              bgColor={handleOverallColor(jogador.velocidade)}
-            />
-            <PlayerStats
-              label={"Defesa"}
-              value={jogador.defesa}
-              onChangeText={(text) =>
-                setJogador({ ...jogador, defesa: Number(text) || 0 })
-              }
-              bgColor={handleOverallColor(jogador.defesa)}
-            />
-          </S.PlayerStatsContainer>
-
-          <S.PlayerStatsContainer>
-            <PlayerStats
-              label={"Ataque"}
-              value={jogador.ataque}
-              onChangeText={(text) =>
-                setJogador({ ...jogador, ataque: Number(text) || 0 })
-              }
-              bgColor={handleOverallColor(jogador.ataque)}
-            />
-            <PlayerStats
-              label={"Saque"}
-              value={jogador.saque}
-              onChangeText={(text) =>
-                setJogador({ ...jogador, saque: Number(text) || 0 })
-              }
-              bgColor={handleOverallColor(jogador.saque)}
-            />
-          </S.PlayerStatsContainer>
-
-          <S.PlayerStatsOverallContainer>
-            <PlayerStats
-              label={"Mentalidade"}
-              value={jogador.mentalidade}
-              onChangeText={(text) =>
-                setJogador({ ...jogador, mentalidade: Number(text) || 0 })
-              }
-              bgColor={handleOverallColor(jogador.mentalidade)}
+        <S.PlayerInfosContainer>
+          <S.PlayerInfosImageContainer>
+            <S.PlayerInfosImage
+              source={jogador.imagem ? { uri: jogador.imagem } : images.default}
             />
 
-            <S.PlayerStatsOverallView>
-              <S.PlayerStatsOverallTitle>Overall</S.PlayerStatsOverallTitle>
+            <S.PlayerInfosInputContainer>
+              <S.PlayerInfosLabel>Imagem</S.PlayerInfosLabel>
 
-              <S.PlayerStatsOverallBox
-                style={{ backgroundColor: handleOverallColor(overall) }}
-              >
-                <S.PlayerStatsOverallValue>
-                  {isNaN(overall) ? 0 : overall}
-                </S.PlayerStatsOverallValue>
-              </S.PlayerStatsOverallBox>
-            </S.PlayerStatsOverallView>
-          </S.PlayerStatsOverallContainer>
-        </S.PlayerStatsMainContainer>
-      </S.PlayerInfosContainer>
+              <S.PlayerInfosImageInput
+                value={jogador.imagem}
+                onChangeText={(text) =>
+                  setJogador({ ...jogador, imagem: text })
+                }
+              />
+            </S.PlayerInfosInputContainer>
+          </S.PlayerInfosImageContainer>
 
-      <S.PlayerButtonContainer>
-        <S.PlayerButtonSave onPress={handleCreatePlayer}>
-          <S.PlayerButtonText>Criar</S.PlayerButtonText>
-        </S.PlayerButtonSave>
+          <S.PlayerInfosMainContainer>
+            <S.PlayerInfosInputContainer>
+              <S.PlayerInfosLabel>Nome (comumente chamado)</S.PlayerInfosLabel>
+              <S.PlayerInfosInput
+                value={jogador.nome}
+                onChangeText={(text) => setJogador({ ...jogador, nome: text })}
+              />
+            </S.PlayerInfosInputContainer>
 
-        <S.PlayerButtonCancel onPress={() => router.back()}>
-          <S.PlayerButtonText>Cancelar</S.PlayerButtonText>
-        </S.PlayerButtonCancel>
-      </S.PlayerButtonContainer>
+            <S.PlayerInfosInputContainer>
+              <S.PlayerInfosLabel>Nome completo</S.PlayerInfosLabel>
+              <S.PlayerInfosInput
+                value={jogador.nomeCompleto}
+                onChangeText={(text) =>
+                  setJogador({ ...jogador, nomeCompleto: text })
+                }
+              />
+            </S.PlayerInfosInputContainer>
 
-      <View style={styles.downView} />
-    </S.PlayerContainer>
+            <S.PlayerInfosInputContainer>
+              <S.PlayerInfosLabel>Turma</S.PlayerInfosLabel>
+              <S.PlayerInfosInput
+                value={jogador.turma}
+                onChangeText={(text) => setJogador({ ...jogador, turma: text })}
+              />
+            </S.PlayerInfosInputContainer>
+          </S.PlayerInfosMainContainer>
+
+          <S.PlayerStatsMainContainer>
+            <S.PlayerStatsContainer>
+              <PlayerStats
+                label={"Velocidade"}
+                value={jogador.velocidade}
+                onChangeText={(text) =>
+                  setJogador({ ...jogador, velocidade: Number(text) || 0 })
+                }
+                bgColor={handleOverallColor(jogador.velocidade)}
+              />
+              <PlayerStats
+                label={"Defesa"}
+                value={jogador.defesa}
+                onChangeText={(text) =>
+                  setJogador({ ...jogador, defesa: Number(text) || 0 })
+                }
+                bgColor={handleOverallColor(jogador.defesa)}
+              />
+            </S.PlayerStatsContainer>
+
+            <S.PlayerStatsContainer>
+              <PlayerStats
+                label={"Ataque"}
+                value={jogador.ataque}
+                onChangeText={(text) =>
+                  setJogador({ ...jogador, ataque: Number(text) || 0 })
+                }
+                bgColor={handleOverallColor(jogador.ataque)}
+              />
+              <PlayerStats
+                label={"Saque"}
+                value={jogador.saque}
+                onChangeText={(text) =>
+                  setJogador({ ...jogador, saque: Number(text) || 0 })
+                }
+                bgColor={handleOverallColor(jogador.saque)}
+              />
+            </S.PlayerStatsContainer>
+
+            <S.PlayerStatsOverallContainer>
+              <PlayerStats
+                label={"Mentalidade"}
+                value={jogador.mentalidade}
+                onChangeText={(text) =>
+                  setJogador({ ...jogador, mentalidade: Number(text) || 0 })
+                }
+                bgColor={handleOverallColor(jogador.mentalidade)}
+              />
+
+              <S.PlayerStatsOverallView>
+                <S.PlayerStatsOverallTitle>Overall</S.PlayerStatsOverallTitle>
+
+                <S.PlayerStatsOverallBox
+                  style={{ backgroundColor: handleOverallColor(overall) }}
+                >
+                  <S.PlayerStatsOverallValue>
+                    {isNaN(overall) ? 0 : overall}
+                  </S.PlayerStatsOverallValue>
+                </S.PlayerStatsOverallBox>
+              </S.PlayerStatsOverallView>
+            </S.PlayerStatsOverallContainer>
+          </S.PlayerStatsMainContainer>
+        </S.PlayerInfosContainer>
+
+        <S.PlayerButtonContainer>
+          <S.PlayerButtonSave onPress={handleCreatePlayer}>
+            <S.PlayerButtonText>Criar</S.PlayerButtonText>
+          </S.PlayerButtonSave>
+
+          <S.PlayerButtonCancel onPress={() => router.back()}>
+            <S.PlayerButtonText>Cancelar</S.PlayerButtonText>
+          </S.PlayerButtonCancel>
+        </S.PlayerButtonContainer>
+
+        <View style={styles.downView} />
+      </S.PlayerContainer>
+    </ScrollView>
   );
 }
 
