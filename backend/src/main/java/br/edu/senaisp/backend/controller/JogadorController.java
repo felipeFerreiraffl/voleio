@@ -2,6 +2,7 @@ package br.edu.senaisp.backend.controller;
 
 import br.edu.senaisp.backend.model.Jogador;
 import br.edu.senaisp.backend.service.JogadorService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,12 +26,12 @@ public class JogadorController {
     }
 
     @PostMapping
-    public Jogador criar(@RequestBody Jogador jog) {
+    public Jogador criar(@RequestBody @Valid Jogador jog) {
         return serv.criar(jog);
     }
 
     @PutMapping("/{id}")
-    public Jogador update(@PathVariable String id, @RequestBody Jogador jog) {
+    public Jogador update(@PathVariable String id, @RequestBody @Valid Jogador jog) {
         return serv.update(id, jog);
     }
 

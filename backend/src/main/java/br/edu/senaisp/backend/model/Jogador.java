@@ -1,5 +1,6 @@
 package br.edu.senaisp.backend.model;
 
+import jakarta.validation.constraints.Max;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,10 +17,20 @@ public class Jogador {
     private String nomeCompleto;
     private String turma;
     private String imagem;
+
+    @Max(value = 99, message = "O valor não pode ser maior que 99")
     private int velocidade;
+
+    @Max(value = 99, message = "O valor não pode ser maior que 99")
     private int ataque;
+
+    @Max(value = 99, message = "O valor não pode ser maior que 99")
     private int defesa;
+
+    @Max(value = 99, message = "O valor não pode ser maior que 99")
     private int saque;
+
+    @Max(value = 99, message = "O valor não pode ser maior que 99")
     private int mentalidade;
 
     public String getId() {
